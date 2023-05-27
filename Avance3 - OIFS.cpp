@@ -10,10 +10,10 @@ using namespace std;
 
 struct TIENDA
 {
-    int item;
+    int item,fecha;
     string articulo, estatus, desc;
     string consola;
-    string genero, clasif;
+    string genero, clasif, carac;
     float precio, total, impuesto;
 };
 
@@ -30,6 +30,7 @@ int main()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int opcion;
+    printf("\n");
     SetConsoleTextAttribute(hConsole, 02);
     printf("\t%c %c %c %c", 178, 177, 178, 177);
     SetConsoleTextAttribute(hConsole, 7);
@@ -37,7 +38,7 @@ int main()
     SetConsoleTextAttribute(hConsole, 04);
     printf("% c % c % c % c \n",177,178,177,178);
     SetConsoleTextAttribute(hConsole, 0+8);
-    printf("\t   %c%c%c   MENU DE OPCIONES   %c%c%c\n",254,254,254,254,254,254);
+    printf("\t   %c%c%c   MEN%c DE OPCIONES   %c%c%c\n",254,254,254,233,254,254,254);
     SetConsoleTextAttribute(hConsole, 03);
     printf("1.- Alta\n");
     printf("2.- Modificaci%cn\n",162);
@@ -91,6 +92,7 @@ void Alta()
     SetConsoleTextAttribute(hConsole, 7);
     scanf_s("%d", &alta);
     registro = new TIENDA[alta];
+
     for (int i = 0; i < alta; i++)
     {
         SetConsoleTextAttribute(hConsole, 0 + 11);
@@ -103,9 +105,18 @@ void Alta()
         SetConsoleTextAttribute(hConsole, 7);
         getline(cin, registro[i].articulo);
         SetConsoleTextAttribute(hConsole, 0 + 11);
+        printf("Ingrese el a%co de lanzamiento: \n", 164);
+        SetConsoleTextAttribute(hConsole, 7);
+        scanf_s("%d", &registro[i].fecha);
+        cin.ignore();
+        SetConsoleTextAttribute(hConsole, 0 + 11);
         printf("Ingrese la descripci%cn: \n",162);
         SetConsoleTextAttribute(hConsole, 7);
         getline(cin, registro[i].desc);
+        SetConsoleTextAttribute(hConsole, 0 + 11);
+        printf("Ingrese la caracter%csticas: \n", 161);
+        SetConsoleTextAttribute(hConsole, 7);
+        getline(cin, registro[i].carac);
         SetConsoleTextAttribute(hConsole, 0 + 11);
         printf("Ingrese el g%cnero: \n",130);
         SetConsoleTextAttribute(hConsole, 7);
@@ -150,9 +161,17 @@ void listas()
             SetConsoleTextAttribute(hConsole, 7);
             cout << registro[i].articulo << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
+            printf("A%cO: ",165);
+            SetConsoleTextAttribute(hConsole, 7);
+            cout << registro[i].fecha << endl;
+            SetConsoleTextAttribute(hConsole, 0 + 9);
             printf("DESCRIPCI%cN: ",224);
             SetConsoleTextAttribute(hConsole, 7);
             cout<< registro[i].desc << endl;
+            SetConsoleTextAttribute(hConsole, 0 + 9);
+            printf("CARACTER%cSTICAS: ",161);
+            SetConsoleTextAttribute(hConsole, 7);
+            cout << registro[i].carac << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
             printf("G%cNERO: ",144);
             SetConsoleTextAttribute(hConsole, 7);
@@ -229,11 +248,13 @@ void modificacion()
     SetConsoleTextAttribute(hConsole, 0 + 13);
     printf("1.- Item \n");
     printf("2.- Art%cculo\n",161);
-    printf("3.- Descripci%cn\n",162);
-    printf("4.- G%cnero\n",130);
-    printf("5.- Clasificaci%cn\n",162);
-    printf("6.- Consola\n");
-    printf("7.- Precio\n");
+    printf("3.- A%co\n", 164);
+    printf("4.- Descripci%cn\n",162);
+    printf("5.- Caracter%csticas\n", 161);
+    printf("6.- G%cnero\n",130);
+    printf("7.- Clasificaci%cn\n",162);
+    printf("8.- Consola\n");
+    printf("9.- Precio\n");
     SetConsoleTextAttribute(hConsole, 0 + 14);
     printf("Ingrese la opci%cn a modificar: ",162);
     SetConsoleTextAttribute(hConsole, 7);
@@ -265,30 +286,49 @@ void modificacion()
         for (int i = m; i == m; i++)
         {
             SetConsoleTextAttribute(hConsole, 05);
-            printf("Ingrese la descripci%cn:  ",162);
+            printf("Ingrese el A%co:  ",164);
             SetConsoleTextAttribute(hConsole, 7);
-            getline(cin, registro[i].desc);
+            cin >> registro[i].fecha;
+            cin.ignore();
         }
         break;
     case 4:
         for (int i = m; i == m; i++)
         {
             SetConsoleTextAttribute(hConsole, 05);
-            printf("Ingrese el g%cnero:  ",130);
+            printf("Ingrese la descripci%cn:  ", 162);
             SetConsoleTextAttribute(hConsole, 7);
-            getline(cin, registro[i].genero);
+            getline(cin, registro[i].desc);
         }
         break;
     case 5:
         for (int i = m; i == m; i++)
         {
             SetConsoleTextAttribute(hConsole, 05);
-            printf("Ingrese la clasificaci%cn:  ",162);
+            printf("Ingrese las caracter%csticas:  ", 161);
+            SetConsoleTextAttribute(hConsole, 7);
+            getline(cin, registro[i].desc);
+        }
+        break;
+    case 6:
+        for (int i = m; i == m; i++)
+        {
+            SetConsoleTextAttribute(hConsole, 05);
+            printf("Ingrese el g%cnero:  ", 130);
+            SetConsoleTextAttribute(hConsole, 7);
+            getline(cin, registro[i].genero);
+        }
+        break;
+    case 7:
+        for (int i = m; i == m; i++)
+        {
+            SetConsoleTextAttribute(hConsole, 05);
+            printf("Ingrese la clasificaci%cn:  ", 162);
             SetConsoleTextAttribute(hConsole, 7);
             getline(cin, registro[i].clasif);
         }
         break;
-    case 6:
+    case 8:
         for (int i = m; i == m; i++)
         {
             SetConsoleTextAttribute(hConsole, 05);
@@ -297,7 +337,7 @@ void modificacion()
             getline(cin, registro[i].consola);
         }
         break;
-    case 7:
+    case 9:
         for (int i = m; i == m; i++)
         {
             SetConsoleTextAttribute(hConsole, 05);
@@ -305,6 +345,7 @@ void modificacion()
             SetConsoleTextAttribute(hConsole, 7);
             cin >> registro[i].precio;
             cin.ignore();
+
         }
         break;
     }
@@ -333,6 +374,7 @@ void archivos()
 
     archivo << "ITEM" << "\t" << "\t";
     archivo << "ARTICULO" << "\t";
+    archivo << "LANZAMIENTO" << "\t";
     archivo << "GENERO" << "\t" << "\t";
     archivo << "CONSOLA" << "\t" << "\t";
     archivo << "PRECIO" << "\t" << "\t";
@@ -352,6 +394,8 @@ void archivos()
             archivo << texto << "\t" << "\t";
             texto2 = registro[i].articulo;
             archivo << texto2 << "\t" << "\t";
+            texto = registro[i].fecha;
+            archivo << texto << "\t" << "\t";
             texto2 = registro[i].genero;
             archivo << texto2 << "\t " << "\t";
             texto2 = registro[i].consola;
