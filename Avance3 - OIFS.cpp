@@ -100,6 +100,20 @@ void Alta()
         SetConsoleTextAttribute(hConsole, 7);
         scanf_s("%d", &registro[i].item);
         cin.ignore();
+        for (int p = -1;p < i;p++)
+        {
+            if (registro[i].item == registro[p].item)
+            {
+                do
+                {
+                    SetConsoleTextAttribute(hConsole, 0 + 12);
+                    printf("Este numero de item ya existe, por favor ingresa otro:\n");
+                    SetConsoleTextAttribute(hConsole, 7);
+                    scanf_s("%d", &registro[i].item);
+                    cin.ignore();
+                } while (registro[i].item == registro[p].item);
+            }
+        }
         SetConsoleTextAttribute(hConsole, 0 + 11);
         printf("Ingrese el nombre del art%cculo: \n",161);
         SetConsoleTextAttribute(hConsole, 7);
@@ -108,6 +122,7 @@ void Alta()
         printf("Ingrese el a%co de lanzamiento: \n", 164);
         SetConsoleTextAttribute(hConsole, 7);
         scanf_s("%d", &registro[i].fecha);
+        
         cin.ignore();
         SetConsoleTextAttribute(hConsole, 0 + 11);
         printf("Ingrese la descripci%cn: \n",162);
@@ -134,6 +149,9 @@ void Alta()
         SetConsoleTextAttribute(hConsole, 7);
         scanf_s("%f", &registro[i].precio);
         cin.ignore();
+        SetConsoleTextAttribute(hConsole, 0 + 11);
+        
+      
     }
 }
 void listas()
@@ -141,17 +159,11 @@ void listas()
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     for (int i = 0; i < alta; i++)
     {
-        //if (matricula[i] == 0)
-        if (registro[i].estatus == "ELIMINADO")
-        {
-            SetConsoleTextAttribute(hConsole, 0 + 12);
-            cout << "REGISTRO " << i + 1 << " ELIMINADO" << endl;
-        }
-        else
+        if (registro[i].estatus != "ELIMINADO")
         {
             SetConsoleTextAttribute(hConsole, 0 + 11);
             cout << "Registro " << i + 1 << endl;
-            
+
             SetConsoleTextAttribute(hConsole, 0 + 9);
             cout << "ITEM: ";
             SetConsoleTextAttribute(hConsole, 7);
@@ -161,41 +173,41 @@ void listas()
             SetConsoleTextAttribute(hConsole, 7);
             cout << registro[i].articulo << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
-            printf("A%cO: ",165);
+            printf("A%co: ", 165);
             SetConsoleTextAttribute(hConsole, 7);
             cout << registro[i].fecha << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
-            printf("DESCRIPCI%cN: ",224);
+            printf("DESCRIPCI%cN: ", 224);
             SetConsoleTextAttribute(hConsole, 7);
-            cout<< registro[i].desc << endl;
+            cout << registro[i].desc << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
-            printf("CARACTER%cSTICAS: ",161);
+            printf("CARACTER%cSTICAS: ", 161);
             SetConsoleTextAttribute(hConsole, 7);
             cout << registro[i].carac << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
-            printf("G%cNERO: ",144);
+            printf("G%cNERO: ", 144);
             SetConsoleTextAttribute(hConsole, 7);
             cout << registro[i].genero << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
-            printf("CLASIFICACI%cN: ",224);
+            printf("CLASIFICACI%cN: ", 224);
             SetConsoleTextAttribute(hConsole, 7);
-            cout<< registro[i].clasif << endl;
+            cout << registro[i].clasif << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
             cout << "CONSOLA: ";
             SetConsoleTextAttribute(hConsole, 7);
-            cout<< registro[i].consola << endl;
+            cout << registro[i].consola << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
             cout << "PRECIO: ";
             SetConsoleTextAttribute(hConsole, 7);
-            cout<<"$" << registro[i].precio << endl;
+            cout << "$" << registro[i].precio << endl;
             SetConsoleTextAttribute(hConsole, 0 + 9);
             cout << "TOTAL: ";
             registro[i].impuesto = registro[i].precio * 0.16;
             registro[i].total = registro[i].impuesto + registro[i].precio;
             SetConsoleTextAttribute(hConsole, 7);
-            cout <<"$" << registro[i].total << endl;
-
+            cout << "$" << registro[i].total << endl;
         }
+        
     }
 }
 void baja()
@@ -225,7 +237,7 @@ void modificacion()
         printf ("Ingrese el n%cmero de registro a modificar: ",163);
         SetConsoleTextAttribute(hConsole, 7);
         cin >> m;
-        m = m - 1; // Esto debido a que i inicia en 0
+        m = m - 1; // Esto ya que m inicia en 0
 
         for (int i = m; i == m; i++)
         {
@@ -259,7 +271,7 @@ void modificacion()
     printf("Ingrese la opci%cn a modificar: ",162);
     SetConsoleTextAttribute(hConsole, 7);
     cin >> opcion1;
-    cin.ignore();  // Limpiar el búfer de entrada
+    cin.ignore();
 
     switch (opcion1)
     {
@@ -354,7 +366,7 @@ void modificacion()
 void archivos()
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    ofstream archivo; //clase ifstream para leer archivos
+    ofstream archivo;
     string nombrearchivo;
     int texto;
     string texto2;
